@@ -1,4 +1,4 @@
-@media (min-width: 600px) {
+/* @media (min-width: 600px) {
     body {
         background-color: red;
     }
@@ -8,6 +8,22 @@
     body {
         background-color: blue;
     }
+} */
+
+body, html {
+    height: 100%;
+}
+
+body {
+    background-image: url("../media/background.png");
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 input[type="submit"] {
