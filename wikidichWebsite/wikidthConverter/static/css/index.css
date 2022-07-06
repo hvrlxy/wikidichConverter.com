@@ -15,6 +15,25 @@ body {
   background-size: cover;
 }
 
+.row{
+    margin: 2cm;
+    display: flex;
+    background-color: aqua;
+    color:rgb(158, 48, 48)
+    /* flex-direction: row; */
+}
+
+.current{
+    /* background-color: #f1f1f1;
+    border-radius: 5px;
+    padding: 10px;
+    width: 50%; */
+    text-align: center;
+    display: inline-block;
+    background-color: aqua;
+    color:rgb(158, 48, 48);
+}
+
 #main_header{
     display: flex;
     background-color: rgba(244, 241, 241, 0.8);

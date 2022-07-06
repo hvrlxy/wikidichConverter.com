@@ -20,5 +20,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('wikidthConverter/', include('wikidthConverter.urls')),
     path('test_template/', include('test_template.urls')),
-    path('booklist/', include('booklist.urls')),
 ]
