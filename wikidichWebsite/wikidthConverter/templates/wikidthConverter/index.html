@@ -1,10 +1,11 @@
 {% extends "wikidthConverter/layout.html" %}
 {% block body %}
-    <div class="row">
-        <div class="current">Home</div>
-        <div class="current">Book List</div>
-    </div>
+<div class="row">
+    <a href="{% url 'wikidithConverter:index' %}" class="current">Home</a>
+    <a href="{% url 'wikidithConverter:booklist' %}" class="current">Book List</a>
+</div>
 
+<div id="content">
     <p>
         This is a simple converter for Wikidich.
     </p>
@@ -20,8 +21,7 @@
         </div>
         <input type="submit">
     </form>
-
-    <a href="{% url 'wikidithConverter:booklist' %}"> Available Books</a>
+</div>
 {% endblock %}
 
 

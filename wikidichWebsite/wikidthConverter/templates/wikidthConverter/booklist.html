@@ -1,11 +1,16 @@
 {% extends "wikidthConverter/layout.html" %}
 {% block body %}
+<div class="row">
+    <a href="{% url 'wikidithConverter:index' %}" class="current">Home</a>
+    <a href="{% url 'wikidithConverter:booklist' %}" class="current">Book List</a>
+</div>
+
+<div id="content">
         <ul>
             {% for book in books %}
                 <li>{{book}}</li>
             {% endfor %}
         </ul>
 
-        <a href="{% url 'wikidithConverter:index' %}">Home</a>
-
+</div>
 {% endblock %}
