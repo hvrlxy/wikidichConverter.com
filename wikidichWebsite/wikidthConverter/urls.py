@@ -5,5 +5,6 @@ app_name = "wikidithConverter"
 
 urlpatterns = [
     path('', views.index, name="index"),
-    path('booklist/', views.all_books, name="booklist")
+    path('booklist/', views.all_books, name="booklist"),
+    path('download_file/<str:file_path>', views.download_file, name="download_file"),
 ]
