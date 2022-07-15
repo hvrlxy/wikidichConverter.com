@@ -32,7 +32,7 @@ def index(request):
             book_name = ParseMainPage(url).get_book_name()
             book_name = 'sample_book'
             book_path = os.path.join(settings.MEDIA_ROOT, 'pdfs/' + book_name + '.pdf')
-            convert_pdf(url, book_path)
+            convert_pdf(url,book_path)
             books.append(book_name)
             return render(request, "wikidthConverter/index.html", {"form": LinkForm(), "book_path": book_name})
         else:
