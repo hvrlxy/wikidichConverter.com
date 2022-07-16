@@ -27,8 +27,12 @@
         Click the link below to download the book
     </p>
         <p>
-            <a href ="{% url 'wikidithConverter:download_file' file_path=book_path%}">Download PDF</a>
+            <a href ="{% url 'wikidithConverter:download_file' file_path=book_path file_format='pdf'%}">Download PDF</a>
         </p>
+        <p>
+            <a href ="{% url 'wikidithConverter:download_file' file_path=book_path file_format='epub'%}">Download EPUB</a>
+        </p>
+        
     {% endif %}
         
 </div>
