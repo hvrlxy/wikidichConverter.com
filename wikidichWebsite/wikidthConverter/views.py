@@ -1,3 +1,6 @@
+import os
+import re
+import sys
 from email.policy import default
 import mimetypes
 import unicodedata
@@ -7,7 +10,6 @@ from django import forms
 from ftfy import fix_encoding
 from wikidichConverter.convert import *
 from wikidichConverter.parse_mainpage import *
-import os
 from django.conf import settings
 from django.conf import settings
 
@@ -21,6 +23,29 @@ class LinkForm(forms.Form):
 
 
 books = ['book1', 'book2', 'book3']
+patterns = {
+    '[àáảãạăắằẵặẳâầấậẫẩ]': 'a',
+    '[đ]': 'd',
+    '[èéẻẽẹêềếểễệ]': 'e',
+    '[ìíỉĩị]': 'i',
+    '[òóỏõọôồốổỗộơờớởỡợ]': 'o',
+    '[ùúủũụưừứửữự]': 'u',
+    '[ỳýỷỹỵ]': 'y'
+}
+
+def convert(text):
+    """
+    Cre: https://sangnd.wordpress.com/2014/01/03/python-chuyen-tieng-viet-co-dau-thanh-khong-dau/
+    Convert from 'Tieng Viet co dau' thanh 'Tieng Viet khong dau'
+    text: input string to be converted
+    Return: string converted
+    """
+    output = text
+    for regex, replace in patterns.items():
+        output = re.sub(regex, replace, output)
+        # deal with upper case
+        output = re.sub(regex.upper(), replace.upper(), output)
+    return output
 
 # Create your views here.
 def index(request):
