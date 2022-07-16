@@ -12,6 +12,8 @@ from wikidichConverter.convert import *
 from wikidichConverter.parse_mainpage import *
 from django.conf import settings
 from django.conf import settings
+from .models import FileInfo, Book
+import datetime as dt
 
 class LinkForm(forms.Form):
     url = forms.URLField(label='Book\'s URL', max_length=10000)
@@ -19,7 +21,6 @@ class LinkForm(forms.Form):
     file_format = forms.ChoiceField(choices = CHOICES, label='Output Format', required=False)
 
 
-books = ['book1', 'book2', 'book3']
 patterns = {
     '[àáảãạăắằẵặẳâầấậẫẩ]': 'a',
     '[đ]': 'd',
@@ -44,6 +45,18 @@ def convert(text):
         output = re.sub(regex.upper(), replace.upper(), output)
     return output
 
+def book_in_database(book_name: str):
+    '''
+    This function checks if the book is in the database.
+    book_name: the name of the book
+    Return: True if the book is in the database, False otherwise
+    '''
+    book = Book.objects.filter(bookName=book_name)
+    if book:
+        return True
+    else:
+        return False
+
 # Create your views here.
 def index(request):
     '''
@@ -60,11 +73,23 @@ def index(request):
             pdf_path = os.path.join(settings.MEDIA_ROOT, 'pdfs/' + book_name + '.pdf')
             epub_path = os.path.join(settings.MEDIA_ROOT, 'epubs/' + book_name + '.epub')
 
-            convert_md(url,md_path)
-            convert_pdf(md_path,pdf_path)
-            convert_epub(md_path,epub_path)
-            books.append(book_name)
+            # Check if the book is in the database
+            if not book_in_database(book_name):
+                convert_md(url,md_path)
+                convert_pdf(md_path,pdf_path)
+                convert_epub(md_path,epub_path)
 
+                # save the file info to the database
+                pdf_file = FileInfo(file_name=book_name, format='pdf')
+                pdf_file.save()
+                epub_file = FileInfo(file_name=book_name, format='epub')
+                epub_file.save()
+
+                # save the book to the database
+                book = Book(dateAdded=dt.datetime.now(), bookName=book_name.replace('_', ' '), bookURL=url, PDFfile=pdf_file, EPUBfile=epub_file)
+                book.save()
+
+            # redirect to the download page
             return render(request, "wikidthConverter/index.html", {"form": LinkForm(), "book_path": book_name})
         else:
             return render(request, "wikidthConverter/index.html", {"form": form, "book_path": None})    
@@ -76,11 +101,14 @@ def all_books(request):
     '''
     This is the page that shows all the books that have been converted.
     '''
+    books = Book.objects.all()
     return render(request, 'wikidthConverter/booklist.html', {'books': books})
 
 def download_file(request, file_path: str, file_format: str):
     '''
     This is the page that shows the download link of the book.
+    file_path: the path of the file
+    file_format: the format of the file
     '''
     print("this is the book name", file_path)
     if file_format == 'pdf':

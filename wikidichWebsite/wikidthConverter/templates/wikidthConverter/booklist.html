@@ -8,7 +8,7 @@
 <div id="content">
         <ul>
             {% for book in books %}
-                <li>{{book}}</li>
+                <li><a href={{book.bookURL}}>{{book.bookName}}</a></li>
             {% empty %}
                 <li>No books found</li>
             {% endfor %}
