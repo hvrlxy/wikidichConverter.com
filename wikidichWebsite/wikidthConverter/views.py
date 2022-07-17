@@ -16,11 +16,14 @@ from .models import FileInfo, Book
 import datetime as dt
 
 class LinkForm(forms.Form):
-    url = forms.URLField(label='Book\'s URL', max_length=10000)
+    '''
+    Form for the link input.
+    '''
+    url = forms.URLField(label='Book\'s URL', max_length=10000) 
     CHOICES = [('pdf', 'PDF'), ('epub', 'EPUB')]
     file_format = forms.ChoiceField(choices = CHOICES, label='Output Format', required=False)
 
-
+# Create word dictionary to aid Vietnamese conversion
 patterns = {
     '[àáảãạăắằẵặẳâầấậẫẩ]': 'a',
     '[đ]': 'd',
@@ -65,16 +68,17 @@ def index(request):
     if request.method == "POST":
         form = LinkForm(request.POST)
         if form.is_valid():
-            url = form.cleaned_data['url']
-            file_format = form.cleaned_data['file_format']
-            book_name = convert(ParseMainPage(url).get_book_name()).replace(' ', '_')
+            url = form.cleaned_data['url'] # Get the URL of the book
+            file_format = form.cleaned_data['file_format'] # Get the format of the file
+            book_name = convert(ParseMainPage(url).get_book_name()).replace(' ', '_') # Get the name of the book
 
-            md_path = os.path.join(settings.MEDIA_ROOT, 'md/' + book_name + '.md')
-            pdf_path = os.path.join(settings.MEDIA_ROOT, 'pdfs/' + book_name + '.pdf')
-            epub_path = os.path.join(settings.MEDIA_ROOT, 'epubs/' + book_name + '.epub')
+            md_path = os.path.join(settings.MEDIA_ROOT, 'md/' + book_name + '.md')  # Get the path of the markdown file
+            pdf_path = os.path.join(settings.MEDIA_ROOT, 'pdfs/' + book_name + '.pdf') # Get the path of the pdf file
+            epub_path = os.path.join(settings.MEDIA_ROOT, 'epubs/' + book_name + '.epub') # Get the path of the epub file
 
             # Check if the book is in the database
             if not book_in_database(book_name):
+                # If the book is not in the database, then download the book
                 convert_md(url,md_path)
                 convert_pdf(md_path,pdf_path)
                 convert_epub(md_path,epub_path)
@@ -92,15 +96,18 @@ def index(request):
             # redirect to the download page
             return render(request, "wikidthConverter/index.html", {"form": LinkForm(), "book_path": book_name})
         else:
+            # If the form is not valid, then redirect to the main page
             return render(request, "wikidthConverter/index.html", {"form": form, "book_path": None})    
-    return render(request, "wikidthConverter/index.html", {"form": LinkForm(), "book_path": None})
-
+    else:
+        # If the request is not POST, then redirect to the main page
+        return render(request, "wikidthConverter/index.html", {"form": LinkForm(), "book_path": None})
 
 # Create your views here.
 def all_books(request):
     '''
     This is the page that shows all the books that have been converted.
     '''
+    # Get all the books from the database
     books = Book.objects.all()
     return render(request, 'wikidthConverter/booklist.html', {'books': books})
 
@@ -110,11 +117,12 @@ def download_file(request, file_path: str, file_format: str):
     file_path: the path of the file
     file_format: the format of the file
     '''
-    print("this is the book name", file_path)
+    # Get the file info from the database
     if file_format == 'pdf':
         file_path = os.path.join(settings.MEDIA_ROOT, 'pdfs/' + file_path + '.pdf')
     else:
         file_path = os.path.join(settings.MEDIA_ROOT, 'epubs/' + file_path + '.epub')
+    # Get the file info from the database
     file_name = file_path.split('/')[-1]
     fl = open(file_path, 'rb')
     mime_type, _ = mimetypes.guess_type(file_path)
