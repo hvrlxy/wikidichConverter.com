@@ -94,7 +94,7 @@ def index(request):
                 book.save()
 
             # redirect to the download page
-            return render(request, "wikidthConverter/index.html", {"form": LinkForm(), "book_path": book_name})
+            return render(request, "wikidthConverter/index.html", {"form": LinkForm(), "book_path": book_name, "file_format": file_format})
         else:
             # If the form is not valid, then redirect to the main page
             return render(request, "wikidthConverter/index.html", {"form": form, "book_path": None})    

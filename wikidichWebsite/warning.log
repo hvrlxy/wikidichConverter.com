@@ -1,0 +1,57 @@
+Not Found: /
+Internal Server Error: /wikidthConverter/
+Traceback (most recent call last):
+  File "/opt/homebrew/lib/python3.9/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/opt/homebrew/lib/python3.9/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/hale/Desktop/wikidichConverter.com/wikidichWebsite/wikidthConverter/views.py", line 82, in index
+    convert_md(url,md_path)
+  File "/opt/homebrew/lib/python3.9/site-packages/wikidichConverter/convert.py", line 41, in convert_md
+    chapter_text_lst = get_all_chapter(book_url) # get all chapter text
+  File "/opt/homebrew/lib/python3.9/site-packages/wikidichConverter/convert.py", line 18, in get_all_chapter
+    chapter_text_lst.append(chapter.get_chapter_text()) # add the chapter text to the list
+  File "/opt/homebrew/lib/python3.9/site-packages/wikidichConverter/parse_chapter.py", line 51, in get_chapter_text
+    ps = self.get_chapter_paragraphs() # get all paragraphs in the chapter
+  File "/opt/homebrew/lib/python3.9/site-packages/wikidichConverter/parse_chapter.py", line 33, in get_chapter_paragraphs
+    for child in chapter_div.findChildren("p" , recursive=False):
+AttributeError: 'NoneType' object has no attribute 'findChildren'
+Internal Server Error: /wikidthConverter/
+Traceback (most recent call last):
+  File "/opt/homebrew/lib/python3.9/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/opt/homebrew/lib/python3.9/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/hale/Desktop/wikidichConverter.com/wikidichWebsite/wikidthConverter/views.py", line 82, in index
+    convert_md(url,md_path)
+  File "/opt/homebrew/lib/python3.9/site-packages/wikidichConverter/convert.py", line 41, in convert_md
+    chapter_text_lst = get_all_chapter(book_url) # get all chapter text
+  File "/opt/homebrew/lib/python3.9/site-packages/wikidichConverter/convert.py", line 18, in get_all_chapter
+    chapter_text_lst.append(chapter.get_chapter_text()) # add the chapter text to the list
+  File "/opt/homebrew/lib/python3.9/site-packages/wikidichConverter/parse_chapter.py", line 51, in get_chapter_text
+    ps = self.get_chapter_paragraphs() # get all paragraphs in the chapter
+  File "/opt/homebrew/lib/python3.9/site-packages/wikidichConverter/parse_chapter.py", line 33, in get_chapter_paragraphs
+    for child in chapter_div.findChildren("p" , recursive=False):
+AttributeError: 'NoneType' object has no attribute 'findChildren'
+Internal Server Error: /wikidthConverter/
+Traceback (most recent call last):
+  File "/opt/homebrew/lib/python3.9/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/opt/homebrew/lib/python3.9/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/hale/Desktop/wikidichConverter.com/wikidichWebsite/wikidthConverter/views.py", line 82, in index
+    convert_md(url,md_path)
+  File "/opt/homebrew/lib/python3.9/site-packages/wikidichConverter/convert.py", line 41, in convert_md
+    chapter_text_lst = get_all_chapter(book_url) # get all chapter text
+  File "/opt/homebrew/lib/python3.9/site-packages/wikidichConverter/convert.py", line 18, in get_all_chapter
+    chapter_text_lst.append(chapter.get_chapter_text()) # add the chapter text to the list
+  File "/opt/homebrew/lib/python3.9/site-packages/wikidichConverter/parse_chapter.py", line 51, in get_chapter_text
+    ps = self.get_chapter_paragraphs() # get all paragraphs in the chapter
+  File "/opt/homebrew/lib/python3.9/site-packages/wikidichConverter/parse_chapter.py", line 33, in get_chapter_paragraphs
+    for child in chapter_div.findChildren("p" , recursive=False):
+AttributeError: 'NoneType' object has no attribute 'findChildren'
+This document format requires a nonempty <title> element.
+  Defaulting to 'Ta_bi_moi_tinh_dau_tu_hon_luc_sau_' as the title.
+  To specify a title, use 'title' in metadata or --metadata title="...".
+
+Not Found: /
